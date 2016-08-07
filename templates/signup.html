@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rango</title>
+    </head>
+
+    <body>
+        <h1>Register to get started</h1>
+
+        {% if registered %}
+        <strong>Sucess you have registered</strong>
+        <a href="/reviewportal/">Return to the homepage.</a><br />
+        {% else %}
+        <strong>Register here!</strong><br />
+
+        <form id="user_form" method="post" action="/signup"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="Register" />
+        </form>
+        {% endif %}
+    </body>
+</html>
