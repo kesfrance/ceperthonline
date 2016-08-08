@@ -8,16 +8,16 @@
 
 {% for post in latest_posts %}
 
-<div class="col-md-4" >
+<div class="col-md-3" >
 <p>
     <a href="/reviewportal/{{post.slug}}">
-    <img src="/media/{{post.image}}"></a>
+    <img src="/media/{{post.image}}" alt='pastorchris' width='250px'></a>
     
 </p>
 
     <p><strong>{{post.title |title}}</strong></p>
     <p><em>{{post.created_at}} | submissions: 3/15</em></p>
-    <p>{{post.synopsis | slice:":60"}} <a href="/reviewportal/{{post.slug}}">....more>></a></p>
+    <p>{{post.synopsis | slice:":60"}} <a href="/reviewportal/{{post.slug}}">....more>></a></p><br>
 </div>
 {% endfor %}
 

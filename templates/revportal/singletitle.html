@@ -1,0 +1,58 @@
+
+{% extends '_base.html' %}
+
+{%block content %}
+{%if single_post.image %}
+<p> <a href="/reviewportal">Review home </a>/  {{single_post.title |title }}.</p>
+<br>
+
+<div class="row">
+  <div class="col-md-3">
+    
+    <img src="/media/{{single_post.image}}" width='250px' alt='pic' class="img-rounded">
+{% endif %}
+  </div>
+  <div class="col-md-8 " style='margin-left: 10px'>
+    <h3 class='headertext'>{{ single_post.title |title }}</h3> 
+    <p><em>{{single_post.created_at }} | Submissions: 3/15</em></p> 
+    <p style='text-align:justify;'>{{ single_post.synopsis}}</p><br/>
+    
+      <form role="form" action='' method='POST'>
+        <div class="form-group">
+        <label for="submission">Submit Your Review:</label>
+        <textarea class="form-control" rows="7" id="submission"></textarea>
+        </div>
+        <button type="button" class="btn btn-info pull-right" onclick="alert('test');">Submit</button>
+      </form><br><br>
+      
+      <p class='headertext'> Current Submissions</p>
+      {% for pf in profiles %}
+       
+      <div id='submissions'>
+        {%if pf.picture %}
+        <span>
+        <img src="/media/{{pf.picture}}" alt="{{pf.user}}" width="60px" height="60px" style='border-radius:10px'>
+        </span>
+        {% else%}
+        <span>
+        {% load static %}
+        <img src="{% static '/media/images/avatar.png' %}" alt="{{pf.user}}" width="60px" height="60px" style='border-radius:10px'>
+        </span>
+        {%endif %}
+        
+        {% if pf.user.first_name or pf.user.last_name %}
+       
+         <span style='margin:10px;'><strong>{{pf.user.first_name}} {{pf.user.last_name}}</strong>&nbsp|</span>
+        {% else%}
+         <span style='margin-right:10px;'><strong>{{pf.user}}</strong>|</span>
+        {%endif %}
+        
+        <span style='margin-right:10px;'>Status: Pending approval</span>|
+        <span><a hre="#">view</a></span>
+      </div><br><br>
+      {% endfor %}
+     </div>
+</div
+
+</div>
+{% endblock %}

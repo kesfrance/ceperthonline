@@ -1,2 +1,2 @@
 # ceperthonline
-A New Django ceperthonline portal
+The New Django ceperthonline portal

@@ -1,13 +1,13 @@
-from django.shortcuts import render, get_object_or_404, render_to_response,\
-    redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.template import Context, loader, RequestContext
-from revportal.models import Post 
+from revportal.models import Post, UserProfile
 from revportal.forms import PostForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 import sys
+
 
 # helper function
 def encode_url(url):
@@ -18,8 +18,9 @@ def user_logout(request):
     return HttpResponseRedirect('/login')
 
 
+   
+
 def user_login(request):
-    context = RequestContext(request)
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -35,10 +36,10 @@ def user_login(request):
             print "Invalid login details: %s %s" %(username, password)
             return HttpResponse('Inavlid login details supplied.')
     else:
-        return render_to_response('login.html', {}, context)
+        req = request
+        return render(request, 'login.html', {})
 
 def user_signup(request):
-    context = RequestContext(request)
     registered = False
     if request.method == "POST":
         user_form = UserForm(data=request.POST)
@@ -54,6 +55,7 @@ def user_signup(request):
             
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
+                profile.save()
             
             registered = True
         
@@ -63,17 +65,13 @@ def user_signup(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
         
-    return render_to_response(
+    return render(request,
             'signup.html',
             {'user_form':user_form, 'profile_form':profile_form,
-             'registered' : registered
-             }, context
-        )
-            
+             'registered' : registered})
             
 
-def add_post(request):
-    context = RequestContext(request)
+def add_newtitle(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -85,30 +83,35 @@ def add_post(request):
             print form.errors
     else:
         form = PostForm()
-    return render_to_response('revportal/add_post.html', {'form': form}, context)
+    return render(request, 'revportal/add_newtitle.html', {'form': form})
     
     
 @login_required
-def index(request):
+def review_index(request):
     latest_posts = Post.objects.all().order_by('-created_at') 
     popular_posts = Post.objects.all().order_by('-views')[:5]
     
-    t = loader.get_template('revportal/index.html')
-    
-    cont_dict = {'latest_posts': latest_posts, 
+    dic = {'latest_posts': latest_posts, 
                  'popular_posts': popular_posts,
                 }
-                
-    c = Context(cont_dict)
-    return HttpResponse(t.render(c))
+    return render(request,'revportal/alltitles.html', dic)
+
+
     
 @login_required
-def post(request, slug):
+def one_title(request, slug):
     single_post = get_object_or_404(Post, 
             slug = slug)
     single_post.views += 1
     single_post.save()
     
-    t = loader.get_template('revportal/post.html')
-    c = Context({'single_post': single_post, }) 
-    return HttpResponse(t.render(c))
+    profiles = UserProfile.objects.all()
+    
+    dic = {'single_post': single_post,
+           'profiles': profiles
+           }
+    
+    return render(request, 'revportal/singletitle.html', dic)
+
+
+
