@@ -6,7 +6,9 @@ from revportal.forms import PostForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-import sys
+import os
+
+from ceperth.settings import MEDIA_ROOT, STATIC_ROOT, MEDIA_URL, STATIC_URL
 
 
 # helper function

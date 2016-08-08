@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
     #Third party app
+    'bootstrap3',
+    'bootstrap_themes',
+   # 'compressor',
     'django_forms_bootstrap',
     
     #My Apps
@@ -133,5 +136,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+COMPRESS_ENABLED = True
+
+STATICFILES_DIRS = [STATIC_DIR, ]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
 
 

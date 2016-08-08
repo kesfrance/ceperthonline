@@ -1,7 +1,10 @@
 
 {% extends '_base.html' %}
 
-{%block content %}
+
+{%block body %}
+ 
+
 {%if single_post.image %}
 <p> <a href="/reviewportal">Review home </a>/  {{single_post.title |title }}.</p>
 <br>
@@ -35,8 +38,8 @@
         </span>
         {% else%}
         <span>
-        {% load static %}
-        <img src="{% static '/media/images/avatar.png' %}" alt="{{pf.user}}" width="60px" height="60px" style='border-radius:10px'>
+      
+        <img src="/media/images/avatar.png" alt="{{pf.user}}" width="60px" height="60px" style='border-radius:10px'>
         </span>
         {%endif %}
         
