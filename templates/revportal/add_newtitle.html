@@ -1,9 +1,9 @@
 {% extends '_base.html' %}
-{% block content %}
+{% block body %}
 {% load bootstrap_tags %} 
 <h3><strong>Add a Post</strong></h3>
 
-<form id="post_form" method="post" action="/reviewportal/add_post/" enctype="multipart/form-data">
+<form id="post_form" method="post" action="/reviewportal/add_newtitle/" enctype="multipart/form-data">
     {% csrf_token %}
     
     {{form | as_bootstrap}}

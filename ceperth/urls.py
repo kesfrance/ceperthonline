@@ -16,23 +16,24 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from .settings import MEDIA_ROOT
 from revportal import views
+from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from ceperth import settings
 
 urlpatterns = [
-    url(r'^$', views.user_login, name='login'),
-    url(r'^login/$', views.user_login, name='login'),#('revportal.urls')),
+    url(r'^$', include('revportal.urls')),
     url(r'^reviewportal/', include('revportal.urls')),
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': MEDIA_ROOT}),
+    url(r'^login/$', views.user_login, name='login'),
     url(r'^signup/$', views.user_signup, name='signup'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^admin/', include(admin.site.urls)),
 
-] # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    
+]
 
-urlpatterns += staticfiles_urlpatterns()
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+   
+  
+#url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+#        {'document_root': MEDIA_ROOT}),

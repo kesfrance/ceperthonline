@@ -17,7 +17,7 @@
   </div>
   <div class="col-md-8 " style='margin-left: 10px'>
     <h3 class='headertext'>{{ single_post.title |title }}</h3> 
-    <p><em>{{single_post.created_at }} | Submissions: 3/15</em></p> 
+    <p><small>{{single_post.created_at |timesince }} | Submissions: 3/15</small></p> 
     <p style='text-align:justify;'>{{ single_post.synopsis}}</p><br/>
     
       <form role="form" action='' method='POST'>

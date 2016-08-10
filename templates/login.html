@@ -1,26 +1,24 @@
-{% extends 'bootstrap3/bootstrap3.html' %}
+
 {% load staticfiles %}
 {% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CEPerthForum</title>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/css/main.css" rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-
-
-{% block bootstrap_extra_head %}
-    <link href='https://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
-     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/yeti/bootstrap.min.css" rel="stylesheet"> 
-    {% load static %}
-     <link rel="stylesheet" href="{% static 'css/ceperth.css'  %}" rel='stylesheet' type='text/css'/>
-    
-{% endblock %}
-    
-{% block bootstrap3_title %}
-   
-{%endblock%}
-
-{% block bootstrap3_content%}
+</head>
+<body class='authbox'>
 <div id='content'>
 <br><br><br><br>
 
-<br><br>
 <div class='container loginbox actionbox' style='max-width:400px; min-width: 300px'>
 
 	 <center>
@@ -34,7 +32,7 @@
 	<div class="form-group" > 
 	<input type='text' id='email'  class="form-control" name='username' placeholder="username" required='required'>
 	</div>
-   
+   <p>Don't have a password:<a href='/signup/'>Sign up</a></p>
    <div class="form-group" class="col-sm-4"> 
 	<input type=password id='password' class="form-control" name='password' placeholder="Password" required='required'>
    </div>
@@ -46,4 +44,4 @@
 <br><br>
 
 </div>
-{% endblock %}
+</body>

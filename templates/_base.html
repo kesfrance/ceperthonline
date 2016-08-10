@@ -1,22 +1,24 @@
-{% extends 'bootstrap3/bootstrap3.html' %}
+
 {% load staticfiles %}
 {% load bootstrap3 %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>CEPerthonline</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/ceperth.css" rel='stylesheet' type='text/css'/>
+  <link href='https://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-{% block bootstrap_extra_head %}
-    <link href='https://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
-     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/yeti/bootstrap.min.css" rel="stylesheet"> 
-    {% load static%}
-     <link rel="stylesheet" href="{% static 'css/ceperth.css' %}" rel='stylesheet' type='text/css'/>
-   
-{% endblock %}
-    
-{% block bootstrap3_title %}
-   
-{%endblock%}
-
-{% block bootstrap3_content%}
-
+  <style>
+ 
+  </style>
+</head>
+<body>
 
 <nav class="navbar navbar-inverse" id='navheaderbar'>
   <div class="container-fluid">
@@ -26,26 +28,24 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/reviewportal">Home</a>
+      <a class="navbar-brand" href="/reviewportal">TrainingPortal</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reviewportal <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="/reviewportal/add_newtitle/">Add New Title <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/reviewportal">Review Home</a></li>
-            <li><a href="#">Add New </a></li>
+            <li><a href="">Portal Home</a></li>
+            <li><a href=>Add Title </a></li>
           </ul>
         </li>
       </ul>
-       {%if user.is_authenticated %}
-       <ul class="nav navbar-nav ">
-        <li><a href="#"></span>Welcome, {{request.user.username |title}}</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
-      </ul>
-        {%endif %}  
-      
-      <ul class="nav navbar-nav  pull-right">
+       <ul class="nav navbar-nav pull-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="/reviewportal/add_newtitle/">Welcome, {{request.user.username |title}} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">User Profile</a></li>
+          </ul>
         <li><a href="/admin"></span> Admin</a></li>
         <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
@@ -56,10 +56,9 @@
 <div class="container-fluid" style='border: solid 0px #BDBBBB;margin-left:15px; margin-right: 15px; padding:5%; border-radius: 5px;background-color: #f5f4f4;'>
    
     {% block body %}{% endblock %}
-</di
 </div>
+<div class="container" style='height: 100px'>
+    <div >&nbsp</div>
+  </div>
+</div
 
-{% endblock %}
-
-</body>
-</html>

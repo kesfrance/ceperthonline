@@ -75,12 +75,12 @@ def user_signup(request):
 
 def add_newtitle(request):
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
+        form = PostForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             #print >>sys.stderr, form.cleaned_data
             #post_url = form.cleaned_data.get('title').replace(" ", "_")
             form.save(commit=True)
-            return redirect(index)
+            return HttpResponseRedirect('/reviewportal/')
         else:
             print form.errors
     else:
@@ -89,7 +89,7 @@ def add_newtitle(request):
     
     
 @login_required
-def review_index(request):
+def all_titles(request):
     latest_posts = Post.objects.all().order_by('-created_at') 
     popular_posts = Post.objects.all().order_by('-views')[:5]
     
