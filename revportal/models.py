@@ -24,6 +24,16 @@ class UserProfile(models.Model):
     #Class to allow adding additional user fields
     user = models.OneToOneField(User)
     picture = models.ImageField(upload_to='profile_images', blank=True, null=True)
+    
 
     def __unicode__(self):
         return self.user.username
+    
+class Review(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+    author = models.ForeignKey(User)
+    post = models.ForeignKey(Post)
+    
+    def __unicode__(self):
+        return unicode("%s: %s" % (self.post, self.content[:30]))

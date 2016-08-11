@@ -1,28 +1,41 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Title</title>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CEPerthForum</title>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/css/main.css" rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-    <body>
-        <h1>Register to get started</h1>
+</head>
+<body class='authbox'>
+<div id='content'>
+<br><br><br><br>
 
-        {% if registered %}
+<div class='container actionbox' style='max-width:400px; min-width: 300px'>
+    
+    {% if registered %}
         <strong>Sucess you have registered</strong>
         <a href="/reviewportal/">Return to the homepage.</a><br />
-        {% else %}
-        <strong>Register here!</strong><br />
-
-        <form id="user_form" method="post" action="/signup/"
-                enctype="multipart/form-data">
-
-            {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Register" />
+   {% else %}
+   <center>
+    <div class='headbanner'>CEPerthForum</div>
+    </center>
+        <form method="POST" class='signupbox' role="form" action="/signup/"  enctype="multipart/form-data">
+             {% csrf_token %}
+            <h4>Sign up: </h4>
+             <input type="name" id="name" name="username"  class="form-control" class='signuptext' placeholder="Username" required><br>
+            <input type="email" id="email" name="email"  class="form-control" class='signuptext' placeholder="Email address" required><br>
+            <input type="password" id="password" name="password"  class="form-control" class='signuptext' placeholder="Password" required><br>
+            <label>Profile picture:</label>
+            <input type='file' id='fileupload' name='picture' ><br>
+            <button type="submit" class="btn loginbtn">Submit</button>
         </form>
-        {% endif %}
-    </body>
+    {% endif %}
+    </div>
+    </div>
+</body>
 </html>

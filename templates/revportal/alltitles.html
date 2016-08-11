@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% block body %}
     
-     <p class='headertext'> Welcome to the Review Portal</p>
+     <p class='headertext1'> Welcome to the Training Portal!!</p>
       
 <br><br>
 
@@ -16,13 +16,13 @@
 
     <a href="/reviewportal/{{post.slug}}">
     <img src="/media/{{post.image}}" alt='pastorchris' width='150px' ></a>
-    <center>
-     <p><a class='headertext' href="/reviewportal/{{post.slug}}">{{post.title |title}}</a></p><br>
-    </center>
-    
-    <small>{{post.created_at |timesince}} | submissions: 3/15</small>
-    
+    <center><br/>
+     <p><a class='headertext2' href="/reviewportal/{{post.slug}}">{{post.title |title}}</a></p><br>
    
+    
+    <small>{{post.created_at |timesince}} | Submissions: 3</small>
+    
+    </center>
      </div>
    </div>
 </div>

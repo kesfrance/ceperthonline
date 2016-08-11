@@ -1,5 +1,5 @@
 from django import forms
-from revportal.models import Post, UserProfile
+from revportal.models import Post, UserProfile, Review
 from django.contrib.auth.models import User
 
 class PostForm(forms.ModelForm):
@@ -20,3 +20,9 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['picture',]
+
+class ReviewForm(forms.ModelForm):
+    
+    class Meta:
+        model = Review
+        fields = ['content', 'post', ]

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.template import Context, loader, RequestContext
-from revportal.models import Post, UserProfile
+from revportal.models import Post, UserProfile, Review
 from revportal.forms import PostForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -20,7 +20,23 @@ def user_logout(request):
     return HttpResponseRedirect('/login')
 
 
-   
+def add_review(request):
+    if request.method == 'POST':
+        the_content = request.POST.get('content')
+        post_id = request.POST.get('postid')
+        #response_data = {}
+        post = Post.objects.get(id__exact = post_id)
+        review = Review(content=the_content, author=request.user,
+                        post=post)
+        print review
+        review.save()
+
+        return HttpResponse("OK")
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
 
 def user_login(request):
     if request.method == "POST":
@@ -46,7 +62,6 @@ def user_signup(request):
     if request.method == "POST":
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
-        
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
@@ -62,7 +77,7 @@ def user_signup(request):
             registered = True
         
         else:
-            print user_form.errors, profile_form.errors
+            print profile_form.errors # user_form.errors, 
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
@@ -72,7 +87,7 @@ def user_signup(request):
             {'user_form':user_form, 'profile_form':profile_form,
              'registered' : registered})
             
-
+@login_required
 def add_newtitle(request):
     if request.method == 'POST':
         form = PostForm(request.POST or None, request.FILES or None)
@@ -102,6 +117,7 @@ def all_titles(request):
     
 @login_required
 def one_title(request, slug):
+    
     single_post = get_object_or_404(Post, 
             slug = slug)
     single_post.views += 1

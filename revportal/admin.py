@@ -1,5 +1,5 @@
 from django.contrib import admin
-from revportal.models import Post, UserProfile
+from revportal.models import Post, UserProfile, Review
 
 
 
@@ -9,5 +9,9 @@ class PostAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'picture')
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('content', 'created', 'author', 'post')
+    
 admin.site.register(Post, PostAdmin)
 admin.site.register(UserProfile, ProfileAdmin)
+admin.site.register(Review, ReviewAdmin)

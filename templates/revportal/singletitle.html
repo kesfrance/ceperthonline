@@ -1,12 +1,10 @@
 
 {% extends '_base.html' %}
 
-
 {%block body %}
  
-
 {%if single_post.image %}
-<p> <a href="/reviewportal">Review home </a>/  {{single_post.title |title }}.</p>
+<p> <a href="/reviewportal">← Return to portal home </a>&nbsp|  <b>{{single_post.title |title }}.</b></p>
 <br>
 
 <div class="row">
@@ -16,43 +14,48 @@
 {% endif %}
   </div>
   <div class="col-md-8 " style='margin-left: 10px'>
-    <h3 class='headertext'>{{ single_post.title |title }}</h3> 
-    <p><small>{{single_post.created_at |timesince }} | Submissions: 3/15</small></p> 
+    <h1 class='headertext3'>{{ single_post.title |title }}</h1> 
+    <p><small>{{single_post.created_at |timesince }} | Submissions: 3</small></p> 
     <p style='text-align:justify;'>{{ single_post.synopsis}}</p><br/>
     
-      <form role="form" action='' method='POST'>
+      <form role="form" id='reviewform' method='POST' action='/reviewportal/add_review/' onsubmit="submitReview('reviewform'); return false">
+         {% csrf_token %}
         <div class="form-group">
-        <label for="submission">Submit Your Review:</label>
-        <textarea class="form-control" rows="7" id="submission"></textarea>
+          <label for="submission">Submit Your Review:</label>
+          <textarea class="form-control" rows="7" id="submission" name="content"></textarea>
+          <input type='hidden' name='postid' value='{{ single_post.id}}'>
         </div>
-        <button type="button" class="btn btn-info pull-right" onclick="alert('test');">Submit</button>
+        <input type="submit" class="btn btn-info pull-right" value='Submit'>
       </form><br><br>
       
-      <p class='headertext'> Current Submissions</p>
+      <p> <strong>Current Submissions</strong></p><br/>
       {% for pf in profiles %}
        
-      <div id='submissions'>
-        {%if pf.picture %}
-        <span>
-        <img src="/media/{{pf.picture}}" alt="{{pf.user}}" width="60px" height="60px" style='border-radius:10px'>
-        </span>
-        {% else%}
-        <span>
+      <div class="row">
+        <div id='submissions' class="col-md-2">
+          {%if pf.picture %}
+          <span>
+            <img src="/media/{{pf.picture}}" alt="{{pf.user}}" width="80px" height="80px" style='border-radius:10px'>
+          </span>
+          {% else%}
+          <span>
       
-        <img src="/media/images/avatar.png" alt="{{pf.user}}" width="60px" height="60px" style='border-radius:10px'>
-        </span>
-        {%endif %}
-        
+          <img src="/media/images/avatar.png" alt="{{pf.user}}" width="80px" height="80px" style='border-radius:10px'>
+         </span>
+         {%endif %}
+      </div>
+      <div id='submissions' class="col-md-4 pull-left">
         {% if pf.user.first_name or pf.user.last_name %}
        
-         <span style='margin:10px;'><strong>{{pf.user.first_name}} {{pf.user.last_name}}</strong>&nbsp|</span>
+         <span><strong>{{pf.user.first_name |title}} {{pf.user.last_name |title}}</strong></span>
         {% else%}
-         <span style='margin-right:10px;'><strong>{{pf.user}}</strong>|</span>
+         <span style='margin-right:10px;'><strong>{{pf.user |title}}</strong></span>
         {%endif %}
-        
-        <span style='margin-right:10px;'>Status: Pending approval</span>|
+        <br>
+        <span style='margin-right:10px;'>Status: Pending approval</span>&nbsp|
         <span><a hre="#">view</a></span>
       </div><br><br>
+      </div><br><br><br>
       {% endfor %}
      </div>
 </div
